@@ -16,6 +16,7 @@ class CreateAccountsTable extends Migration
             CREATE TABLE accounts(
                 `id` BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                `state` INT UNSIGNED NOT NULL,
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL
             );
@@ -29,6 +30,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('accounts');
     }
 }

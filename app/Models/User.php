@@ -1,7 +1,6 @@
 <?php
 
 namespace Tatekae\Models;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -12,7 +11,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'account_id',
     ];
 
     /**

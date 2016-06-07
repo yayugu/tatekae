@@ -20,3 +20,9 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+//Route::get('home', '');
+Route::get('tatekae/{account_id}', 'TatekaeController@getLedge');
+Route::post('tatekae/new', 'TatekaeController@postNewAccount');
+Route::post('tatekae/{account_id}/new', 'TatekaeController@postNewLedgeRecord');
+Route::post('tatekae/{account_id}/{ledge_id}/edit', 'TatekaeController@postEditLedgeRecord');

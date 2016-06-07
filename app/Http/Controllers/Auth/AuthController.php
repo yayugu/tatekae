@@ -2,6 +2,7 @@
 
 namespace Tatekae\Http\Controllers\Auth;
 
+use Tatekae\Models\Account;
 use Tatekae\Models\User;
 use Validator;
 use Tatekae\Http\Controllers\Controller;
@@ -51,7 +52,6 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -65,10 +65,13 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $account = Account::create([
+           'name' => $data['email'],
+        ]);
         return User::create([
-            'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'account_id' => $account->id,
         ]);
     }
 }

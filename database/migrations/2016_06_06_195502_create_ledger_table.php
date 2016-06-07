@@ -20,6 +20,7 @@ class CreateLedgerTable extends Migration
                 `payer` BIGINT UNSIGNED NOT NULL,
                 `payee` BIGINT UNSIGNED NOT NULL,
                 `value` BIGINT UNSIGNED NOT NULL,
+                `state` INT UNSIGNED NOT NULL,
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL
             );
@@ -33,6 +34,6 @@ class CreateLedgerTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('ledger');
     }
 }

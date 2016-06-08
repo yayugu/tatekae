@@ -15,14 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::post('login', 'Auth\AuthController@postLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');
+Route::get('register', 'Auth\AuthController@getRegister');
+Route::post('register', 'Auth\AuthController@postRegister');
 
 //Route::get('home', '');
-Route::get('tatekae/{account_id}', 'TatekaeController@getLedge');
+Route::get('tatekae', 'TatekaeController@getMypage');
+Route::get('tatekae/{account_id}', 'TatekaeController@getLedger');
 Route::post('tatekae/new', 'TatekaeController@postNewAccount');
-Route::post('tatekae/{account_id}/new', 'TatekaeController@postNewLedgeRecord');
-Route::post('tatekae/{account_id}/{ledge_id}/edit', 'TatekaeController@postEditLedgeRecord');
+Route::post('tatekae/{account_id}/new', 'TatekaeController@postNewLedgerRecord');
+Route::post('tatekae/{account_id}/{ledger_id}/edit', 'TatekaeController@postEditLedgerRecord');

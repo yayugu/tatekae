@@ -2,6 +2,8 @@
 
 namespace Tatekae\Providers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (config('app.env') === 'local') {
+            DB::listen(function ($query) {
+                Log::debug('EXECUTE SQL:[' . $query->sql . ']', ['BINDINGS'=>json_encode($query->bindings)]);
+            });
+        }
     }
 
     /**

@@ -6,7 +6,7 @@
         <div class="container">
             <h1 class="title">Register</h1>
 
-            <form method="POST" action="/auth/register">
+            <form method="POST" action="/register">
                 {!! csrf_field() !!}
 
                 <div>

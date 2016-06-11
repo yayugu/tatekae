@@ -2,23 +2,26 @@
 
 namespace Tatekae\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Ledger extends Model
+class Ledger extends \Eloquent
 {
+    const STATE_APPROVAL_NOT_REQUIRED = 0;
+    const STATE_ARRROVAL_WAITING = 1;
+    const STATE_APPROVED = 2;
+    const STATE_REJECTED = 3;
+
     protected $table = 'ledger';
 
     protected $fillable = [
         'created_by', 'item', 'payer', 'payee', 'value',
     ];
 
-    public static function getLedgerAcross(int $account_id_self, int $account_id_client)
+    public static function getLedgerAcross(int $accountIdSelf, int $accountIdClient)
     {
-        $records = self::whereIn('payer', [$account_id_self, $account_id_client])
-            ->whereIn('payee', [$account_id_self, $account_id_client])
+        $records = self::whereIn('payer', [$accountIdSelf, $accountIdClient])
+            ->whereIn('payee', [$accountIdSelf, $accountIdClient])
             ->get()
-            ->map(function ($record) use ($account_id_self) {
-                if ($record->payer === $account_id_self) {
+            ->map(function ($record) use ($accountIdSelf) {
+                if ($record->payer === $accountIdSelf) {
                     return[
                         'item' => $record->item,
                         'account_receivable' => 0,
@@ -31,17 +34,14 @@ class Ledger extends Model
                     'account_payable' => 0,
                 ];
             });
-        $sum_record = $records->reduce(function ($partial, $record) {
-            $partial['account_receivable'] += $record['account_receivable'];
-            $partial['account_payable'] += $record['account_payable'];
+        $sumRecord = $records->reduce(function ($partial, $record) {
+            $partial += $record['account_receivable'];
+            $partial -= $record['account_payable'];
             return $partial;
-        }, [
-            'account_receivable' => 0,
-            'account_payable' => 0,
-        ]);
+        }, 0);
         return [
             'records' => $records,
-            'sum_record' => $sum_record,
+            'sum_record' => $sumRecord,
         ];
     }
 }

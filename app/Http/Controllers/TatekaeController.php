@@ -4,8 +4,6 @@ namespace Tatekae\Http\Controllers;
 
 use Tatekae\Models\Account;
 use Tatekae\Models\Ledger;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TatekaeController extends Controller
 {
@@ -21,7 +19,7 @@ class TatekaeController extends Controller
 
     public function getLedger(string $account_id)
     {
-        $ledger = Ledger::getLedgerAcross(Auth::user()->account->id, $account_id);
+        $ledger = Ledger::getLedgerAcross(\Auth::user()->account->id, $account_id);
         return view('tatekae.ledger', [
             'account' => Account::find($account_id),
             'ledger' => $ledger,
@@ -38,8 +36,8 @@ class TatekaeController extends Controller
 
     public function postNewLedgerRecord(string $account_id)
     {
-        $user = Auth::user();
-        if (Request::input('type') === 'account_receivable') {
+        $user = \Auth::user();
+        if (\Request::input('type') === 'account_receivable') {
             $payer = $account_id;
             $payee = $user->account->id;
         } else {

@@ -1,9 +1,8 @@
 <?php
 
 namespace Tatekae\Models;
-use Illuminate\Database\Eloquent\Model;
 
-class Account extends Model
+class Account extends \Eloquent
 {
     protected $fillable = [
         'name',

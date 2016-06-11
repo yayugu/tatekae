@@ -33,8 +33,8 @@
         </tr>
     @endforeach
     <tr>
-        <th>{{$ledger['sum_record']['account_receivable']}}</th>
-        <th>{{$ledger['sum_record']['account_payable']}}</th>
+        <th>{{$ledger['sum_record']}}</th>
+        <th></th>
         <th>計</th>
     </tr>
 </table>

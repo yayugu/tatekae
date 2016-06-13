@@ -1,4 +1,4 @@
-<form method="POST" action="/login">
+<form method="POST" action="{{url('/login')}}">
     {!! csrf_field() !!}
 
     <div>

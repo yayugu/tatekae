@@ -1,22 +1,22 @@
 @extends('layouts.master')
-@section('title', 'Page Title')
+@section('title', 'Dashboard')
 
 @section('content')
-    <section>
+    <section class="section">
         <div class="container">
             <h1 class="title">Add Account</h1>
 
-            <form method="POST" action="/tatekae/new">
+            <form method="POST" action="{{url('/tatekae/new')}}">
                 {!! csrf_field() !!}
 
-                <div>
-                    Name
-                    <input type="text" name="name" value="">
-                </div>
+                <label class="label">Name</label>
+                <p class="control">
+                    <input type="text" class="input" name="name" value="">
+                </p>
 
-                <div>
-                    <button type="submit">Register</button>
-                </div>
+                <p class="control">
+                    <button type="submit" class="button is-primary">Submit</button>
+                </p>
             </form>
         </div>
     </section>

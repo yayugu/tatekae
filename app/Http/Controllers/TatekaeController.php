@@ -4,6 +4,7 @@ namespace Tatekae\Http\Controllers;
 
 use Tatekae\Models\Account;
 use Tatekae\Models\Ledger;
+use Tatekae\Models\OwnAccounts;
 
 class TatekaeController extends Controller
 {
@@ -14,7 +15,10 @@ class TatekaeController extends Controller
 
     public function getMypage()
     {
-        return view('tatekae.mypage');
+        $user = \Auth::user();
+        return view('tatekae.mypage', [
+            'user' => $user,
+        ]);
     }
 
     public function getLedger(string $account_id)
@@ -28,9 +32,17 @@ class TatekaeController extends Controller
 
     public function postNewAccount()
     {
-        $a = Account::create([
-            'name' => Request::input('name'),
-        ]);
+        $a = null;
+        \DB::transaction(function () use (&$a) {
+            $user = \Auth::user();
+            $a = Account::create([
+                'name' => \Request::input('name'),
+            ]);
+            OwnAccounts::create([
+                'owner_user_id' => $user->id,
+                'account_id' => $a->id,
+            ]);
+        });
         return redirect()->action('TatekaeController@getLedger', [$a->id]);
     }
 

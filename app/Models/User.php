@@ -27,4 +27,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo('Tatekae\Models\Account');
     }
+
+    public function ownAccounts()
+    {
+        $account_ids = OwnAccounts::where('owner_user_id', $this->id)->pluck('account_id');
+        return Account::whereIn('id', $account_ids);
+    }
 }

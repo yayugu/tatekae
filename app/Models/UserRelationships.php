@@ -2,6 +2,8 @@
 
 namespace Tatekae\Models;
 
+use Illuminate\Support\Collection;
+
 class UserRelationships extends \Eloquent
 {
     const STATE_PENDING = 0;
@@ -9,15 +11,15 @@ class UserRelationships extends \Eloquent
     const STATE_REJECTED = 2;
 
     protected $fillable = [
-        'user_one', 'user_two', 'created_by', 'state',
+        'user_one_id', 'user_two_id', 'created_by', 'state',
     ];
 
     public static function create_(int $userCreatedBy, int $other): Model
     {
         list($userOne, $userTwo) = self::sort($userCreatedBy, $other);
         return self::create([
-            'user_one' => $userOne,
-            'user_two' => $userTwo,
+            'user_one_id' => $userOne,
+            'user_two_id' => $userTwo,
             'created_by' => $userCreatedBy,
             'state' => self::STATE_PENDING,
         ]);
@@ -28,8 +30,8 @@ class UserRelationships extends \Eloquent
         \DB::transaction(function () use ($other) {
             $myUserId = \Auth::user()->id;
             list($userOne, $userTwo) = self::sort($myUserId, $other);
-            $relationship = self::where('user_one', $userOne)
-                ->where('user_two', $userTwo)
+            $relationship = self::where('user_one_id', $userOne)
+                ->where('user_two_id', $userTwo)
                 ->where('created_by', $other)
                 ->lockForUpdate()
                 ->firstOrFail();
@@ -43,9 +45,20 @@ class UserRelationships extends \Eloquent
     public static function isFriend(int $userOne, int $userTwo): bool
     {
         list($userOne, $userTwo) = self::sort($userOne, $userTwo);
-        return !!self::where('user_one', $userOne)
-            ->where('user_two', $userTwo)
+        return !!self::where('user_one_id', $userOne)
+            ->where('user_two_id', $userTwo)
             ->where('state', self::STATE_APPROVED)->first();
+    }
+
+    public static function friendsIds(int $user): Collection
+    {
+        $user_ids_a = self::where('user_one_id', $user)
+            ->where('state', self::STATE_APPROVED)
+            ->pluck('user_two_id');
+        $user_ids_b = self::where('user_two_id', $user)
+            ->where('state', self::STATE_APPROVED)
+            ->pluck('user_one_id');
+        return $user_ids_a->merge($user_ids_b);
     }
 
     private static function sort(int $userOne, int $userTwo): array

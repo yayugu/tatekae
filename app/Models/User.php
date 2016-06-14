@@ -33,4 +33,9 @@ class User extends Authenticatable
         $account_ids = OwnAccounts::where('owner_user_id', $this->id)->pluck('account_id');
         return Account::whereIn('id', $account_ids);
     }
+
+    public function friends()
+    {
+        return self::whereIn('id', UserRelationships::friendsIds($this->id));
+    }
 }

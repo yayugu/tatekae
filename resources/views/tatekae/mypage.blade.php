@@ -6,9 +6,17 @@
         <div class="container">
             <h1 class="title">Accounts</h1>
 
-            @foreach($user->ownAccounts()->get() as $account)
-                {{$account->name}}
-            @endforeach
+            <table class="table">
+                @foreach($user->ownAccounts()->get() as $account)
+                    <tr>
+                        <td>
+                            <a href="{{action('TatekaeController@getLedger', $account->id)}}">
+                                {{$account->name}}
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
         </div>
     </section>
     <section class="section">
@@ -27,6 +35,23 @@
                     <button type="submit" class="button is-primary">Submit</button>
                 </p>
             </form>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Friends</h1>
+
+            <table class="table">
+                @foreach($user->friends()->get() as $friend_user)
+                    <tr>
+                        <td>
+                            <a href="{{action('TatekaeController@getLedger', $friend_user->account->id)}}">
+                                {{$friend_user->account->name}}
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
         </div>
     </section>
 @stop

@@ -2,8 +2,8 @@
     {!! csrf_field() !!}
 
     <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
+        Screen Name (Alphabet & underscore)
+        <input type="screen_name" name="screen_name" value="{{ old('screen_name') }}">
     </div>
 
     <div>

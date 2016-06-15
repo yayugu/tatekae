@@ -13,12 +13,15 @@
                     </a>
                 </div>
                 <div class="nav-right nav-menu">
+                    @if (Auth::check())
                     <a class="nav-item is-active" href="{{url('/tatekae')}}">
-                        {{Auth::user()->email}}
+                        {{Auth::user()->screen_name}}
                     </a>
                     <a class="nav-item is-active" href="{{url('/logout')}}">
                         Logout
                     </a>
+                    @endif
+
                 </div>
             </nav>
         </div>

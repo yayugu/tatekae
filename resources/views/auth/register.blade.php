@@ -6,12 +6,12 @@
         <div class="container">
             <h1 class="title">Register</h1>
 
-            <form method="POST" action="{{url('/register')}}>
+            <form method="POST" action="{{url('/register')}}">
                 {!! csrf_field() !!}
 
                 <div>
-                    Email
-                    <input type="email" name="email" value="{{ old('email') }}">
+                    Screen Name
+                    <input type="text" name="screen_name" value="{{ old('screen_name') }}">
                 </div>
 
                 <div>

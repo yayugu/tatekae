@@ -30,12 +30,21 @@ class User extends Authenticatable
 
     public function ownAccounts()
     {
-        $account_ids = OwnAccounts::where('owner_user_id', $this->id)->pluck('account_id');
+        $account_ids = OwnAccount::where('owner_user_id', $this->id)->pluck('account_id');
         return Account::whereIn('id', $account_ids);
     }
 
     public function friends()
     {
-        return self::whereIn('id', UserRelationships::friendsIds($this->id));
+        return self::whereIn('id', UserRelationship::friendsIds($this->id));
+    }
+
+    /**
+     * overrides.
+     *
+     * @see \Illuminate\Contracts\Auth\Authenticatable::setRememberToken()
+     */
+    public function setRememberToken($value)
+    {
     }
 }

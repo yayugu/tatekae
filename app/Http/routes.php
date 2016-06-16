@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-$this->get('login', 'Auth\AuthController@showLoginForm');
-$this->post('login', 'Auth\AuthController@login');
-$this->get('logout', 'Auth\AuthController@logout');
-$this->get('register', 'Auth\AuthController@showRegistrationForm');
-$this->post('register', 'Auth\AuthController@register');
+Route::get('login', 'Auth\AuthController@showLoginForm');
+Route::post('login', 'Auth\AuthController@login');
+Route::get('logout', 'Auth\AuthController@logout');
+Route::get('register', 'Auth\AuthController@showRegistrationForm');
+Route::post('register', 'Auth\AuthController@register');
 
 //Route::get('home', '');
 Route::get('tatekae', 'TatekaeController@getMypage');
@@ -27,3 +27,7 @@ Route::get('tatekae/{account_id}', 'TatekaeController@getLedger');
 Route::post('tatekae/new', 'TatekaeController@postNewAccount');
 Route::post('tatekae/{account_id}/new', 'TatekaeController@postNewLedgerRecord');
 Route::post('tatekae/{account_id}/{ledger_id}/edit', 'TatekaeController@postEditLedgerRecord');
+
+Route::post('user_relationship/new', 'UserRelationshipController@postNew');
+Route::post('user_relationship/reply', 'UserRelationshipController@postReply');
+

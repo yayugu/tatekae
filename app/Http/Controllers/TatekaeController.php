@@ -4,7 +4,7 @@ namespace Tatekae\Http\Controllers;
 
 use Tatekae\Models\Account;
 use Tatekae\Models\Ledger;
-use Tatekae\Models\OwnAccounts;
+use Tatekae\Models\OwnAccount;
 
 class TatekaeController extends Controller
 {
@@ -38,7 +38,7 @@ class TatekaeController extends Controller
             $a = Account::create([
                 'name' => \Request::input('name'),
             ]);
-            OwnAccounts::create([
+            OwnAccount::create([
                 'owner_user_id' => $user->id,
                 'account_id' => $a->id,
             ]);

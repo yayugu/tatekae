@@ -54,4 +54,22 @@
             </table>
         </div>
     </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Add Account</h1>
+
+            <form method="POST" action="{{action('UserRelationshipController@postNew')}}">
+                {!! csrf_field() !!}
+
+                <label class="label">Name (User id)</label>
+                <p class="control">
+                    <input type="text" class="input" name="screen_name" value="">
+                </p>
+
+                <p class="control">
+                    <button type="submit" class="button is-primary">Add Friend</button>
+                </p>
+            </form>
+        </div>
+    </section>
 @stop

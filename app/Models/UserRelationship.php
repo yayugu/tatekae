@@ -10,6 +10,8 @@ class UserRelationship extends \Eloquent
     const STATE_APPROVED = 1;
     const STATE_REJECTED = 2;
 
+    protected $primaryKey = 'user_one_id';
+
     protected $fillable = [
         'user_one_id', 'user_two_id', 'created_by', 'state',
     ];
@@ -25,7 +27,7 @@ class UserRelationship extends \Eloquent
         ]);
     }
 
-    public static function response(int $other, bool $isapproved)
+    public static function response(int $other, bool $isApproved)
     {
         \DB::transaction(function () use ($other, $isApproved) {
             $myUserId = \Auth::user()->id;
@@ -35,7 +37,7 @@ class UserRelationship extends \Eloquent
                 ->where('created_by', $other)
                 ->lockForUpdate()
                 ->firstOrFail();
-            if ($isApproved && $relationship->state == self::STATE_PENDING || $relationship->state == self::STATE_REJECTED) {
+            if ($isApproved && ($relationship->state == self::STATE_PENDING || $relationship->state == self::STATE_REJECTED)) {
                 $relationship->state = self::STATE_APPROVED;
             } else if ($relationship->state == self::STATE_PENDING || $relationship->state == self::STATE_APPROVED) {
                 $relationship->state = self::STATE_REJECTED;
@@ -59,6 +61,32 @@ class UserRelationship extends \Eloquent
             ->pluck('user_two_id');
         $user_ids_b = self::where('user_two_id', $user)
             ->where('state', self::STATE_APPROVED)
+            ->pluck('user_one_id');
+        return $user_ids_a->merge($user_ids_b);
+    }
+    
+    public static function pendingFriendsIds(int $user): Collection
+    {
+        $user_ids_a = self::where('user_one_id', $user)
+            ->where('state', self::STATE_PENDING)
+            ->where('created_by', '!=', $user)
+            ->pluck('user_two_id');
+        $user_ids_b = self::where('user_two_id', $user)
+            ->where('state', self::STATE_PENDING)
+            ->where('created_by', '!=', $user)
+            ->pluck('user_one_id');
+        return $user_ids_a->merge($user_ids_b);
+    }
+
+    public static function pendingFriendsCreatedByIds(int $user): Collection
+    {
+        $user_ids_a = self::where('user_one_id', $user)
+            ->where('state', self::STATE_PENDING)
+            ->where('created_by', $user)
+            ->pluck('user_two_id');
+        $user_ids_b = self::where('user_two_id', $user)
+            ->where('state', self::STATE_PENDING)
+            ->where('created_by', $user)
             ->pluck('user_one_id');
         return $user_ids_a->merge($user_ids_b);
     }

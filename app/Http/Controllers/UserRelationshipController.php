@@ -17,8 +17,7 @@ class UserRelationshipController extends Controller
 
     public function postReply(Request $request)
     {
-        $userId = User::where('screen_name', $request->input('screen_name'))->value('id');
-        UserRelationship::response($userId, $request->input('is_approved'));
+        UserRelationship::response($request->input('user_id'), $request->input('is_approved'));
         return redirect('/tatekae');
     }
 }

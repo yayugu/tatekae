@@ -1,42 +1,46 @@
-<form method="POST" action="{{ action('TatekaeController@postNewLedgerRecord', [$account->id]) }}">
-    {!! csrf_field() !!}
+@extends('layouts.master')
+@section('title', '')
 
-    <div>
-        項目
-        <input type="text" name="item" value="">
-    </div>
+@section('content')
+    <form method="POST" action="{{ action('TatekaeController@postNewLedgerRecord', [$account->id]) }}">
+        {!! csrf_field() !!}
 
-    <input type="radio" name="type" value="account_receivable" checked>受け取り予定
-    <input type="radio" name="type" value="account_payable">支払い予定
+        <div>
+            項目
+            <input type="text" name="item" value="">
+        </div>
 
-    <div>
-        Value
-        <input type="text" name="value" value="">
-    </div>
+        <input type="radio" name="type" value="account_receivable" checked>受け取り予定
+        <input type="radio" name="type" value="account_payable">支払い予定
 
-    <div>
-        <button type="submit">Add</button>
-    </div>
-</form>
+        <div>
+            Value
+            <input type="text" name="value" value="">
+        </div>
 
-<table>
-    <tr>
-        <th>受け取り予定</th>
-        <th>支払い予定</th>
-        <th>項目</th>
-    </tr>
-    @foreach($ledger['records'] as $record)
+        <div>
+            <button type="submit">Add</button>
+        </div>
+    </form>
+
+    <table>
         <tr>
-            <th>{{$record['account_receivable']}}</th>
-            <th>{{$record['account_payable']}}</th>
-            <th>{{$record['item']}}</th>
+            <th>受け取り予定</th>
+            <th>支払い予定</th>
+            <th>項目</th>
         </tr>
-    @endforeach
-    <tr>
-        <th>{{$ledger['sum_record']}}</th>
-        <th></th>
-        <th>計</th>
-    </tr>
-</table>
-
+        @foreach($ledger['records'] as $record)
+            <tr>
+                <th>{{$record['account_receivable']}}</th>
+                <th>{{$record['account_payable']}}</th>
+                <th>{{$record['item']}}</th>
+            </tr>
+        @endforeach
+        <tr>
+            <th>{{$ledger['sum_record']}}</th>
+            <th></th>
+            <th>計</th>
+        </tr>
+    </table>
+@stop
 

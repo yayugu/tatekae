@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Login')
+@section('title', '- Login')
 
 @section('content')
     <form method="POST" action="{{url('/login')}}">

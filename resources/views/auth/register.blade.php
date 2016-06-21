@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', '登録')
+@section('title', '- 登録')
 
 @section('content')
     <section>

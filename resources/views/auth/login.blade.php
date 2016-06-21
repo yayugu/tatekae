@@ -2,25 +2,28 @@
 @section('title', '- Login')
 
 @section('content')
-    <form method="POST" action="{{url('/login')}}">
-        {!! csrf_field() !!}
+    <section class="section">
+        <div class="columns is-centered">
+            <div class="column is-three-quarters is">
+                <h1 class="title">ログイン</h1>
+                <form method="POST" action="{{url('/login')}}">
+                    {!! csrf_field() !!}
 
-        <div>
-            Screen Name (Alphabet & underscore)
-            <input type="text" name="screen_name" value="{{ old('screen_name') }}">
-        </div>
+                    <label class="label">ユーザー名（アルファベットと_(アンダースコア）のみ）</label>
+                    <p class="control">
+                        <input class="input" type="text" name="screen_name" value="{{ old('screen_name') }}">
+                    </p>
 
-        <div>
-            Password
-            <input type="password" name="password" id="password">
-        </div>
+                    <label class="label">パスワード</label>
+                    <p class="control">
+                        <input class="input" type="password" name="password" id="password">
+                    </p>
 
-        <div>
-            <input type="checkbox" name="remember"> Remember Me
+                    <p class="control is-pulled-right">
+                        <button class="button is-primary" type="submit">Login</button>
+                    </p>
+                </form>
+            </div>
         </div>
-
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
+    </section>
 @stop

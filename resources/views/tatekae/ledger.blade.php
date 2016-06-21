@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', '')
+@section('title', '- ' . $account->name)
 
 @section('content')
     <form method="POST" action="{{ action('TatekaeController@postNewLedgerRecord', [$account->id]) }}">

@@ -1,9 +1,9 @@
 <html>
 
-<title>App Name - @yield('title')</title>
+<title>App Name - @yield('title', '')</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.css">
 <body class="layout-default">
-<section class="hero is-primary is-bold">
+<section class="hero is-light is-bold @yield('section-option', '')">
     <div class="hero-head">
         <div class="container">
             <nav class="nav">
@@ -26,9 +26,10 @@
             </nav>
         </div>
     </div>
+    @yield('hero-body', '')
 </section>
+
+@yield('content', '')
+
 </body>
-
-@yield('content')
-
 </html>

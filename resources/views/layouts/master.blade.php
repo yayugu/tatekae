@@ -3,7 +3,7 @@
 <title>Tatekae @yield('title', '')</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.css">
 <body class="layout-default">
-<section class="hero is-light is-bold @yield('section-option', '')">
+<section class="hero is-bold @yield('section-option', '')">
     <div class="hero-head">
         <div class="container">
             <nav class="nav">

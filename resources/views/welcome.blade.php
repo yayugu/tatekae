@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('section-option', 'is-fullheight')
+@section('section-option', 'is-light is-fullheight')
 
 @section('hero-body')
     <!-- Hero content: will be in the middle -->

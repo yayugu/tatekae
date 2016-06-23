@@ -4,7 +4,7 @@
 @section('content')
     <section class="section">
         <div class="columns is-centered">
-            <div class="column is-three-quarters is">
+            <div class="column is-two-thirds">
                 <h1 class="title">ログイン</h1>
                 <form method="POST" action="{{url('/login')}}">
                     {!! csrf_field() !!}

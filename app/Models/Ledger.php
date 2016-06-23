@@ -26,12 +26,14 @@ class Ledger extends \Eloquent
                         'item' => $record->item,
                         'account_receivable' => 0,
                         'account_payable' => (int)$record->value,
+                        'created_at' => $record->created_at,
                     ];
                 }
                 return[
                     'item' => $record->item,
                     'account_receivable' => (int)$record->value,
                     'account_payable' => 0,
+                    'created_at' => $record->created_at,
                 ];
             });
         $sumRecord = $records->reduce(function ($partial, $record) {

@@ -9,7 +9,7 @@
                 Tatekae
             </h1>
             <h2 class="subtitle">
-                立替をメモしよう。自分用にも、相手との確認にも
+                立替をメモしよう
             </h2>
         </div>
     </div>

@@ -7,6 +7,8 @@
             <div class="column is-two-thirds">
                 <h1 class="title">登録</h1>
 
+                @include('parts.error_message')
+
                 <form method="POST" action="{{url('/register')}}">
                     {!! csrf_field() !!}
 
@@ -22,7 +24,7 @@
 
                     <label class="label">パスワード（確認）</label>
                     <p class="control">
-                        <input class="input" type="password" name="password_confirm">
+                        <input class="input" type="password" name="password_confirmation">
                     </p>
 
                     <p class="control is-pulled-right">

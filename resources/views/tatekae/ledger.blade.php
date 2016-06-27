@@ -6,6 +6,8 @@
         <form method="POST" action="{{ action('TatekaeController@postNewLedgerRecord', [$account->id]) }}">
             {!! csrf_field() !!}
 
+            @include('parts.error_message')
+
             <div class="control is-grouped">
                 <div class="control">
                     <span class="select">

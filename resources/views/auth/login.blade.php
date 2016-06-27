@@ -6,6 +6,9 @@
         <div class="columns is-centered">
             <div class="column is-two-thirds">
                 <h1 class="title">ログイン</h1>
+
+                @include('parts.error_message')
+
                 <form method="POST" action="{{url('/login')}}">
                     {!! csrf_field() !!}
 

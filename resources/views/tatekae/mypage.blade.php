@@ -2,6 +2,8 @@
 @section('title', '- Dashboard')
 
 @section('content')
+    @include('parts.error_message')
+
     <section class="section">
         <div class="container">
             <h1 class="title">Accounts</h1>

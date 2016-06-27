@@ -48,7 +48,7 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -62,18 +62,22 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
     {
-        $account = Account::create([
-           'name' => $data['screen_name'],
-        ]);
-        return User::create([
-            'screen_name' => $data['screen_name'],
-            'password' => bcrypt($data['password']),
-            'account_id' => $account->id,
-        ]);
+        $user = null;
+        \DB::transaction(function () use ($data, &$user) {
+            $account = Account::create([
+                'name' => $data['screen_name'],
+            ]);
+            $user = User::create([
+                'screen_name' => $data['screen_name'],
+                'password' => bcrypt($data['password']),
+                'account_id' => $account->id,
+            ]);
+        });
+        return $user;
     }
 }

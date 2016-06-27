@@ -14,12 +14,13 @@ class CreateUserRelationships extends Migration
     {
         DB::statement('
             CREATE TABLE user_relationships(
-                `user_one_id` BIGINT UNSIGNED NOT NULL PRIMARY KEY,
+                `user_one_id` BIGINT UNSIGNED NOT NULL,
                 `user_two_id` BIGINT UNSIGNED NOT NULL,
                 `created_by` BIGINT UNSIGNED NOT NULL,
                 `state` INT UNSIGNED NOT NULL,
                 `created_at` DATETIME NOT NULL,
-                `updated_at` DATETIME NOT NULL
+                `updated_at` DATETIME NOT NULL,
+                PRIMARY KEY (`user_one_id`, `user_two_id`)
             );
         ');
     }

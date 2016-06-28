@@ -21,7 +21,7 @@ class Ledger extends \Eloquent
             ->whereIn('payee', [$accountIdSelf, $accountIdClient])
             ->get()
             ->map(function ($record) use ($accountIdSelf) {
-                if ($record->payer === $accountIdSelf) {
+                if ((int)$record->payer === $accountIdSelf) {
                     return[
                         'item' => $record->item,
                         'account_receivable' => 0,

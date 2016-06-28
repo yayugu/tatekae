@@ -11,50 +11,11 @@ class UserRelationship extends \Eloquent
     const STATE_APPROVED = 1;
     const STATE_REJECTED = 2;
 
-    protected $primaryKey = 'user_one_id';
+    protected $primaryKey = 'user_one_id'; // Composite key. Actually PK is ['user_one_id, 'user_two_id']
 
     protected $fillable = [
         'user_one_id', 'user_two_id', 'created_by', 'state',
     ];
-
-    /**
-     * Set the keys for a save update query.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected function setKeysForSaveQuery(Builder $query)
-    {
-        $keys = $this->getKeyName();
-        if(!is_array($keys)){
-            return parent::setKeysForSaveQuery($query);
-        }
-
-        foreach($keys as $keyName){
-            $query->where($keyName, '=', $this->getKeyForSaveQuery($keyName));
-        }
-
-        return $query;
-    }
-
-    /**
-     * Get the primary key value for a save query.
-     *
-     * @param mixed $keyName
-     * @return mixed
-     */
-    protected function getKeyForSaveQuery($keyName = null)
-    {
-        if(is_null($keyName)){
-            $keyName = $this->getKeyName();
-        }
-
-        if (isset($this->original[$keyName])) {
-            return $this->original[$keyName];
-        }
-
-        return $this->getAttribute($keyName);
-    }
 
     public static function create_(int $userCreatedBy, int $other): self
     {
@@ -136,5 +97,18 @@ class UserRelationship extends \Eloquent
         $a = [$userOne, $userTwo];
         sort($a);
         return $a;
+    }
+
+    /**
+     * Override to support composite key.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function setKeysForSaveQuery(Builder $query)
+    {
+        parent::setKeysForSaveQuery($query);
+        $query->where('user_two_id', '=', $this->user_two_id);
+        return $query;
     }
 }

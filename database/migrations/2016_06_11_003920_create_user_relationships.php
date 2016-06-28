@@ -21,7 +21,7 @@ class CreateUserRelationships extends Migration
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
                 PRIMARY KEY (`user_one_id`, `user_two_id`)
-            );
+            ) ENGINE=InnoDB ROW_FORMAT=DYNAMIC CHARACTER SET ascii COLLATE ascii_general_ci
         ');
     }
 

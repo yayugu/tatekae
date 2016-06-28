@@ -18,7 +18,7 @@ class CreateOwnAccounts extends Migration
                 `owner_user_id` BIGINT UNSIGNED NOT NULL,
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL
-            );
+            ) ENGINE=InnoDB ROW_FORMAT=DYNAMIC CHARACTER SET ascii COLLATE ascii_general_ci;
         ');
     }
 

@@ -13,10 +13,10 @@ class CreatePasswordResetsTable extends Migration
     {
         DB::statement('
             CREATE TABLE password_resets(
-                `email` VARCHAR(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL PRIMARY KEY,
-                `token` VARCHAR(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+                `email` VARCHAR(255) NOT NULL PRIMARY KEY,
+                `token` VARCHAR(255) NOT NULL,
                 `created_at` DATETIME NOT NULL
-            );
+            ) ENGINE=InnoDB ROW_FORMAT=DYNAMIC CHARACTER SET ascii COLLATE ascii_general_ci;
         ');
     }
 

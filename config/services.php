@@ -39,4 +39,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    // socialite
+    'google' => [
+        'client_id' => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('GOOGLE_CALLBACK_URL'),
+    ],
+
 ];

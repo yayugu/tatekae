@@ -45,6 +45,16 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
+    public function getSocialRedirect()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function getSocialHandle()
+    {
+        $user = Socialite::driver('github')->user();
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *

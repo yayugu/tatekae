@@ -21,6 +21,9 @@ Route::get('logout', 'Auth\AuthController@logout');
 Route::get('register', 'Auth\AuthController@showRegistrationForm');
 Route::post('register', 'Auth\AuthController@register');
 
+Route::get('/social/redirect/google', ['as' => 'social.redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
+Route::get('/social/handle/google', ['as' => 'social.handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
+
 //Route::get('home', '');
 Route::get('tatekae', 'TatekaeController@getMypage');
 Route::get('tatekae/{account_id}', 'TatekaeController@getLedger');

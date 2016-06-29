@@ -5,22 +5,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'screen_name', 'password', 'account_id',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
+        'social_provider',
+        'social_id',
+        'email',
+        'icon',
+        'account_id',
     ];
 
     public function account()

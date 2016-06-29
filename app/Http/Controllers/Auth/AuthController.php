@@ -4,7 +4,6 @@ namespace Tatekae\Http\Controllers\Auth;
 
 use Tatekae\Models\Account;
 use Tatekae\Models\User;
-use Validator;
 use Tatekae\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -33,7 +32,7 @@ class AuthController extends Controller
 
     protected $loginPath = '/login';
 
-    protected $username = 'screen_name';
+    protected $username = 'social_id';
 
     /**
      * Create a new authentication controller instance.
@@ -47,47 +46,46 @@ class AuthController extends Controller
 
     public function getSocialRedirect()
     {
-        return Socialite::driver('google')->redirect();
+        return \Socialite::driver('google')->redirect();
     }
 
     public function getSocialHandle()
     {
-        $user = Socialite::driver('github')->user();
+        $providerRespondedUser = \Socialite::driver('google')->user();
+        /** @var User $user */
+        $user = User::where('social_id', $providerRespondedUser->id)
+            ->where('social_provider', 'google')
+            ->first();
+        if (!$user) {
+            $user = $this->createUser($providerRespondedUser);
+        }
+        $this->updateUserInfo($user, $providerRespondedUser);
+        \Auth::login($user, true);
+        return redirect()->intended($this->redirectPath());
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'screen_name' => ['required', 'regex:/[a-z_]+/', 'max:255', 'unique:users'],
-            'password' => 'required|min:6|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array $data
-     * @return User
-     */
-    protected function create(array $data)
+    protected function createUser(\Laravel\Socialite\AbstractUser $providerRespondedUser) : User
     {
         $user = null;
-        \DB::transaction(function () use ($data, &$user) {
+        \DB::transaction(function () use ($providerRespondedUser, &$user) {
             $account = Account::create([
-                'name' => $data['screen_name'],
+                'name' => $providerRespondedUser->nickname ??$providerRespondedUser->name,
             ]);
             $user = User::create([
-                'screen_name' => $data['screen_name'],
-                'password' => bcrypt($data['password']),
                 'account_id' => $account->id,
+                'social_provider' => 'google',
+                'social_id' => $providerRespondedUser->id,
+                'email' => $providerRespondedUser->email,
+                'icon' => $providerRespondedUser->avatar,
             ]);
         });
         return $user;
+    }
+
+    protected function updateUserInfo(User $user, \Laravel\Socialite\AbstractUser $providerRespondedUser)
+    {
+        $user->email = $providerRespondedUser->email;
+        $user->icon = $providerRespondedUser->avatar;
+        $user->saveOrFail();
     }
 }

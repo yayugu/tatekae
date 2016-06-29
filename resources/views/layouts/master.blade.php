@@ -23,7 +23,7 @@
                 <div id="nav-menu" class="nav-right nav-menu">
                     @if (Auth::check())
                         <a class="nav-item is-active" href="{{url('/tatekae')}}">
-                            {{Auth::user()->screen_name}}
+                            {{Auth::user()->email}}
                         </a>
                         <a class="nav-item is-active" href="{{url('/logout')}}">
                             Logout

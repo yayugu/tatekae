@@ -14,11 +14,14 @@ class CreateUsersTable extends Migration
         DB::statement('
             CREATE TABLE users(
                 `id` BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                `screen_name` VARCHAR(255) NOT NULL UNIQUE,
-                `password` VARCHAR(255) NOT NULL,
-                `account_id`  BIGINT UNSIGNED NOT NULL,
+                `social_provider` VARCHAR(50) NOT NULL,
+                `social_id` VARCHAR(255) NOT NULL,
+                `email` VARCHAR(255) NOT NULL,
+                `icon` VARCHAR(1024) NOT NULL,
+                `account_id` BIGINT UNSIGNED NOT NULL,
                 `created_at` DATETIME NOT NULL,
-                `updated_at` DATETIME NOT NULL
+                `updated_at` DATETIME NOT NULL,
+                UNIQUE KEY (`social_id`, `social_provider`)
             ) ENGINE=InnoDB ROW_FORMAT=DYNAMIC CHARACTER SET ascii COLLATE ascii_general_ci;
         ');
     }

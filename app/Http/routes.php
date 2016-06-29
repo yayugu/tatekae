@@ -18,8 +18,6 @@ Route::get('/', function () {
 Route::get('login', 'Auth\AuthController@showLoginForm');
 Route::post('login', 'Auth\AuthController@login');
 Route::get('logout', 'Auth\AuthController@logout');
-Route::get('register', 'Auth\AuthController@showRegistrationForm');
-Route::post('register', 'Auth\AuthController@register');
 
 Route::get('/social/redirect/google', ['as' => 'social.redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
 Route::get('/social/handle/google', ['as' => 'social.handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
@@ -33,4 +31,3 @@ Route::post('tatekae/{account_id}/{ledger_id}/edit', 'TatekaeController@postEdit
 
 Route::post('user_relationship/new', 'UserRelationshipController@postNew');
 Route::post('user_relationship/reply', 'UserRelationshipController@postReply');
-

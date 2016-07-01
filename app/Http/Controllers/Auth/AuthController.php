@@ -46,15 +46,15 @@ class AuthController extends Controller
 
     public function getSocialRedirect()
     {
-        return \Socialite::driver('google')->redirect();
+        return \Socialite::driver('twitter')->redirect();
     }
 
     public function getSocialHandle()
     {
-        $providerRespondedUser = \Socialite::driver('google')->user();
+        $providerRespondedUser = \Socialite::driver('twitter')->user();
         /** @var User $user */
         $user = User::where('social_id', $providerRespondedUser->id)
-            ->where('social_provider', 'google')
+            ->where('social_provider', 'twitter')
             ->first();
         if (!$user) {
             $user = $this->createUser($providerRespondedUser);
@@ -69,13 +69,13 @@ class AuthController extends Controller
         $user = null;
         \DB::transaction(function () use ($providerRespondedUser, &$user) {
             $account = Account::create([
-                'name' => $providerRespondedUser->nickname ??$providerRespondedUser->name,
+                'name' => $providerRespondedUser->name,
             ]);
             $user = User::create([
                 'account_id' => $account->id,
-                'social_provider' => 'google',
+                'social_provider' => 'twitter',
                 'social_id' => $providerRespondedUser->id,
-                'email' => $providerRespondedUser->email,
+                'screen_name' => $providerRespondedUser->nickname,
                 'icon' => $providerRespondedUser->avatar,
             ]);
         });
@@ -84,7 +84,7 @@ class AuthController extends Controller
 
     protected function updateUserInfo(User $user, \Laravel\Socialite\AbstractUser $providerRespondedUser)
     {
-        $user->email = $providerRespondedUser->email;
+        $user->screen_name = $providerRespondedUser->nickname;
         $user->icon = $providerRespondedUser->avatar;
         $user->saveOrFail();
     }

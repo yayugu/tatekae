@@ -2,6 +2,29 @@
 
 namespace Tatekae\Models;
 
+/**
+ * Tatekae\Models\Ledger
+ *
+ * @property integer $id
+ * @property integer $created_by
+ * @property string $item
+ * @property integer $payer
+ * @property integer $payee
+ * @property integer $value
+ * @property integer $state
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereCreatedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereItem($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger wherePayer($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger wherePayee($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereValue($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\Ledger whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Ledger extends \Eloquent
 {
     const STATE_APPROVAL_NOT_REQUIRED = 0;

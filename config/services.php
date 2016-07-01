@@ -40,10 +40,10 @@ return [
     ],
 
     // socialite
-    'google' => [
-        'client_id' => env('GOOGLE_ID'),
-        'client_secret' => env('GOOGLE_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT'),
+    'twitter' => [
+        'client_id' => env('TWITTER_KEY'),
+        'client_secret' => env('TWITTER_SECRET'),
+        'redirect' => env('TWITTER_REDIRECT'),
     ],
 
 ];

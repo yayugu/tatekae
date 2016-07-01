@@ -3,12 +3,34 @@
 namespace Tatekae\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Tatekae\Models\User
+ *
+ * @property integer $id
+ * @property string $social_provider
+ * @property string $social_id
+ * @property string $screen_name
+ * @property string $icon
+ * @property integer $account_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Tatekae\Models\Account $account
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereSocialProvider($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereSocialId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereScreenName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereIcon($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereAccountId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     protected $fillable = [
         'social_provider',
         'social_id',
-        'email',
+        'screen_name',
         'icon',
         'account_id',
     ];

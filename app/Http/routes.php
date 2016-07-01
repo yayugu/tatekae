@@ -19,8 +19,8 @@ Route::get('login', 'Auth\AuthController@showLoginForm');
 Route::post('login', 'Auth\AuthController@login');
 Route::get('logout', 'Auth\AuthController@logout');
 
-Route::get('/social/redirect/google', ['as' => 'social.redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
-Route::get('/social/handle/google', ['as' => 'social.handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
+Route::get('/social/redirect/twitter', ['as' => 'social.redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
+Route::get('/social/handle/twitter', ['as' => 'social.handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
 
 //Route::get('home', '');
 Route::get('tatekae', 'TatekaeController@getMypage');

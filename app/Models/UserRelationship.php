@@ -5,6 +5,23 @@ namespace Tatekae\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * Tatekae\Models\UserRelationship
+ *
+ * @property integer $user_one_id
+ * @property integer $user_two_id
+ * @property integer $created_by
+ * @property integer $state
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\UserRelationship whereUserOneId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\UserRelationship whereUserTwoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\UserRelationship whereCreatedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\UserRelationship whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\UserRelationship whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\UserRelationship whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class UserRelationship extends \Eloquent
 {
     const STATE_PENDING = 0;

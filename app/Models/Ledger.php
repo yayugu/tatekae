@@ -42,6 +42,7 @@ class Ledger extends \Eloquent
     {
         $records = self::whereIn('payer', [$accountIdSelf, $accountIdClient])
             ->whereIn('payee', [$accountIdSelf, $accountIdClient])
+            ->orderBy('id', 'desc')
             ->get()
             ->map(function ($record) use ($accountIdSelf) {
                 if ((int)$record->payer === $accountIdSelf) {

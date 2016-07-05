@@ -30,7 +30,7 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/tatekae';
 
-    protected $loginPath = '/login';
+    protected $loginPath = '/social/login/twitter';
 
     protected $username = 'social_id';
 

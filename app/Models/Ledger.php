@@ -70,4 +70,32 @@ class Ledger extends \Eloquent
             'sum_record' => $sumRecord,
         ];
     }
+
+    public static function getSumsByAccount(int $accountId)
+    {
+        $query = '
+            select
+              `client`,
+              sum(`value`) as `value`
+            from
+              (
+                select
+                  case when payer = ? then payee else payer end as `client`,
+                  sum(
+                    case when payer = ? then -value else value end
+                  ) as `value`
+                from
+                  ledger
+                where
+                  payer = ? or payee = ?
+                group by
+                  payer,
+                  payee
+              ) as `sub1`
+            group by 
+              `client`
+            ;
+        ';
+        return \DB::select($query , [$accountId, $accountId, $accountId, $accountId]);
+    }
 }

@@ -4,6 +4,9 @@
 @section('content')
     @include('parts.error_message')
 
+    <?php $totalAble = \Tatekae\Models\Ledger::getTotalAble($sums) ?>
+    トータル支払える額: {{$totalAble['payable']}}<br>
+    トータル受け取れる額: {{$totalAble['receivable']}}<br>
 
     <section class="section">
         <div class="container">
@@ -49,7 +52,8 @@
                     <tr>
                         <td>
                             <a href="{{action('TatekaeController@getLedger', $friend_user->account->id)}}">
-                                {{$friend_user->account->name}}
+                                <img src="{{$friend_user->icon}}" width="32px" height="32px">
+                                {{$friend_user->account->name}} {{$sums[$friend_user->account->id] ?? 0}}
                             </a>
                         </td>
                     </tr>

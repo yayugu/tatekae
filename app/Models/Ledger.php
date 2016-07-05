@@ -108,22 +108,20 @@ class Ledger extends \Eloquent
         return \DB::select($query , [$accountId, $accountId, $accountId, $accountId]);
     }
 
-    public static function getTotalPayable(int $accountId)
+    public static function getTotalAble(array $sumsByAccount)
     {
-        $query = '    
-            select
-              sum(
-                case when payer = ? then value else 0 end
-              ) as `payable`,
-              sum(
-                case when payee = ? then value else 0 end
-              ) as `receivable`
-            from
-              ledger
-            where
-              payer = ? or payee = ?
-            ;
-        ';
-        return \DB::select($query , [$accountId, $accountId, $accountId, $accountId])[0];
+        $payable = 0;
+        $receivable = 0;
+        foreach ($sumsByAccount as $value) {
+            if ($value > 0) {
+                $receivable += $value;
+            } else {
+                $payable += -$value;
+            }
+        }
+        return [
+            'payable' => $payable,
+            'receivable' => $receivable,
+        ];
     }
 }

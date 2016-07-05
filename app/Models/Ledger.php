@@ -73,6 +73,15 @@ class Ledger extends \Eloquent
 
     public static function getSumsByAccount(int $accountId)
     {
+        $kv = [];
+        foreach(self::getSumsByAccount_($accountId) as $r) {
+            $kv[$r->client] = $r->value;
+        }
+        return $kv;
+    }
+
+    private static function getSumsByAccount_(int $accountId)
+    {
         $query = '
             select
               `client`,
@@ -97,5 +106,24 @@ class Ledger extends \Eloquent
             ;
         ';
         return \DB::select($query , [$accountId, $accountId, $accountId, $accountId]);
+    }
+
+    public static function getTotalPayable(int $accountId)
+    {
+        $query = '    
+            select
+              sum(
+                case when payer = ? then value else 0 end
+              ) as `payable`,
+              sum(
+                case when payee = ? then value else 0 end
+              ) as `receivable`
+            from
+              ledger
+            where
+              payer = ? or payee = ?
+            ;
+        ';
+        return \DB::select($query , [$accountId, $accountId, $accountId, $accountId])[0];
     }
 }

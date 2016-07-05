@@ -16,8 +16,10 @@ class TatekaeController extends Controller
     public function getMypage()
     {
         $user = \Auth::user();
+        $sums = Ledger::getSumsByAccount($user->id);
         return view('tatekae.mypage', [
             'user' => $user,
+            'sums' => $sums,
         ]);
     }
 

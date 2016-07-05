@@ -4,6 +4,7 @@
 @section('content')
     @include('parts.error_message')
 
+
     <section class="section">
         <div class="container">
             <h1 class="title">Accounts</h1>
@@ -13,7 +14,7 @@
                     <tr>
                         <td>
                             <a href="{{action('TatekaeController@getLedger', $account->id)}}">
-                                {{$account->name}}
+                                {{$account->name}}  {{$sums[$account->id] ?? 0}}
                             </a>
                         </td>
                     </tr>

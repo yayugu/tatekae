@@ -55,7 +55,7 @@
             <form method="POST" action="{{action('UserRelationshipController@postNew')}}">
                 {!! csrf_field() !!}
                 <p class="control has-addons">
-                    <input class="input is-expanded" type="text" name="name" placeholder="Twitter username (ex. @foobar) ">
+                    <input class="input is-expanded" type="text" name="screen_name" placeholder="Twitter username (ex. @foobar) ">
                     <button type="submit" class="button is-primary">友達を追加</button>
                 </p>
                 <p class="control">

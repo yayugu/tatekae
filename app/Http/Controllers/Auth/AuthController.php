@@ -30,7 +30,7 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/tatekae';
 
-    protected $loginPath = '/social/login/twitter';
+    protected $loginPath = '/social/redirect/twitter';
 
     protected $username = 'social_id';
 
@@ -75,6 +75,8 @@ class AuthController extends Controller
                 'account_id' => $account->id,
                 'social_provider' => 'twitter',
                 'social_id' => $providerRespondedUser->id,
+                'social_token' => $providerRespondedUser->token,
+                'social_token_secret' => $providerRespondedUser->tokenSecret,
                 'screen_name' => $providerRespondedUser->nickname,
                 'icon' => $providerRespondedUser->avatar,
             ]);

@@ -23,22 +23,14 @@
                     </tr>
                 @endforeach
             </table>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Add Account</h1>
 
             <form method="POST" action="{{url('/tatekae/new')}}">
                 {!! csrf_field() !!}
-
-                <label class="label">Name</label>
-                <p class="control">
-                    <input type="text" class="input" name="name" value="">
+                <p class="control has-addons">
+                    <input class="input is-expanded" type="text" name="name" placeholder="なまえ">
+                    <button type="submit" class="button is-primary">友達を追加（相手に見せない）</button>
                 </p>
-
                 <p class="control">
-                    <button type="submit" class="button is-primary">Submit</button>
                 </p>
             </form>
         </div>
@@ -59,22 +51,14 @@
                     </tr>
                 @endforeach
             </table>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Add Friend</h1>
 
             <form method="POST" action="{{action('UserRelationshipController@postNew')}}">
                 {!! csrf_field() !!}
-
-                <label class="label">Name (User id)</label>
-                <p class="control">
-                    <input type="text" class="input" name="screen_name" value="">
+                <p class="control has-addons">
+                    <input class="input is-expanded" type="text" name="name" placeholder="Twitter username (ex. @foobar) ">
+                    <button type="submit" class="button is-primary">友達を追加</button>
                 </p>
-
                 <p class="control">
-                    <button type="submit" class="button is-primary">Add Friend</button>
                 </p>
             </form>
         </div>

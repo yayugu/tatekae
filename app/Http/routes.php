@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', 'Auth\AuthController@showLoginForm');
-Route::post('login', 'Auth\AuthController@login');
+//Route::get('login', 'Auth\AuthController@showLoginForm');
+//Route::post('login', 'Auth\AuthController@login');
 Route::get('logout', 'Auth\AuthController@logout');
 
 Route::get('/social/redirect/twitter', ['as' => 'social.redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);

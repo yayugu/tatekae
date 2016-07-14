@@ -24,6 +24,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $social_token
+ * @property string $social_token_secret
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereSocialToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tatekae\Models\User whereSocialTokenSecret($value)
  */
 class User extends Authenticatable
 {
@@ -31,6 +35,8 @@ class User extends Authenticatable
         'social_provider',
         'social_id',
         'screen_name',
+        'social_token',
+        'social_token_secret',
         'icon',
         'account_id',
     ];
@@ -43,9 +49,7 @@ class User extends Authenticatable
     public function ownAccounts()
     {
         $account_ids = OwnAccount::where('owner_user_id', $this->id)->pluck('account_id');
-        return Account::whereIn('id', $account_ids)->with([
-
-        ]);
+        return Account::whereIn('id', $account_ids);
     }
 
     public function friends()

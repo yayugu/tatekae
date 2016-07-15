@@ -57,37 +57,12 @@ class AuthController extends Controller
             ->where('social_provider', 'twitter')
             ->first();
         if (!$user) {
-            $user = $this->createUser($providerRespondedUser);
+            $user = User::createUserWithAuthentication($providerRespondedUser);
         }
-        $this->updateUserInfo($user, $providerRespondedUser);
+        $user->updateUserInfo($providerRespondedUser);
         \Auth::login($user, true);
         return redirect()->intended($this->redirectPath());
     }
 
-    protected function createUser(\Laravel\Socialite\AbstractUser $providerRespondedUser) : User
-    {
-        $user = null;
-        \DB::transaction(function () use ($providerRespondedUser, &$user) {
-            $account = Account::create([
-                'name' => $providerRespondedUser->name,
-            ]);
-            $user = User::create([
-                'account_id' => $account->id,
-                'social_provider' => 'twitter',
-                'social_id' => $providerRespondedUser->id,
-                'social_token' => $providerRespondedUser->token,
-                'social_token_secret' => $providerRespondedUser->tokenSecret,
-                'screen_name' => $providerRespondedUser->nickname,
-                'icon' => $providerRespondedUser->avatar,
-            ]);
-        });
-        return $user;
-    }
 
-    protected function updateUserInfo(User $user, \Laravel\Socialite\AbstractUser $providerRespondedUser)
-    {
-        $user->screen_name = $providerRespondedUser->nickname;
-        $user->icon = $providerRespondedUser->avatar;
-        $user->saveOrFail();
-    }
 }

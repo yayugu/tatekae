@@ -41,6 +41,53 @@ class User extends Authenticatable
         'account_id',
     ];
 
+    public static function createUserWithAuthentication(\Laravel\Socialite\AbstractUser $providerRespondedUser) : User
+    {
+        $user = null;
+        \DB::transaction(function () use ($providerRespondedUser, &$user) {
+            $account = Account::create([
+                'name' => $providerRespondedUser->name,
+            ]);
+            $user = self::create([
+                'account_id' => $account->id,
+                'social_provider' => 'twitter',
+                'social_id' => $providerRespondedUser->id,
+                'social_token' => $providerRespondedUser->token,
+                'social_token_secret' => $providerRespondedUser->tokenSecret,
+                'screen_name' => $providerRespondedUser->nickname,
+                'icon' => $providerRespondedUser->avatar,
+            ]);
+        });
+        return $user;
+    }
+
+    public static function createUserByOtherRequest(\stdClass $apiRespondedUser) : User
+    {
+        $user = null;
+        \DB::transaction(function () use ($apiRespondedUser, &$user) {
+            $account = Account::create([
+                'name' => $apiRespondedUser->name,
+            ]);
+            $user = self::create([
+                'account_id' => $account->id,
+                'social_provider' => 'twitter',
+                'social_id' => $apiRespondedUser->id_str,
+                'social_token' => '',
+                'social_token_secret' => '',
+                'screen_name' => $apiRespondedUser->screen_name,
+                'icon' => $apiRespondedUser->profile_image_url,
+            ]);
+        });
+        return $user;
+    }
+
+    public function updateUserInfo(\Laravel\Socialite\AbstractUser $providerRespondedUser)
+    {
+        $this->screen_name = $providerRespondedUser->nickname;
+        $this->icon = $providerRespondedUser->avatar;
+        $this->saveOrFail();
+    }
+
     public function account()
     {
         return $this->belongsTo('Tatekae\Models\Account');

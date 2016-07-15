@@ -2,7 +2,7 @@
 
 namespace Tatekae\Http\Controllers;
 
-use Endroid\Twitter\Twitter;
+use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Http\Request;
 use Tatekae\Models\User;
 use Tatekae\Models\UserRelationship;
@@ -12,15 +12,17 @@ class UserRelationshipController extends Controller
     public function postNew(Request $request)
     {
         //$userId = User::where('screen_name', $request->input('screen_name'))->value('id');
-        $friendUser = User::where('screen_name', $request->input('screen_name'))->get();
+        $screenName = $request->input('screen_name');
+        $friendUser = User::where('screen_name', $screenName)->first();
         if (!$friendUser) {
-            $twitter = new Twitter(
+            $twitter = new TwitterOAuth(
                 env('TWITTER_KEY'), env('TWITTER_SECRET'),
                 \Auth::user()->social_token, \Auth::user()->social_token_secret
             );
-            $twitter->
+            $twitter_user = $twitter->get('users/show', ['screen_name' => $screenName]);
+            $friendUser = User::createUserByOtherRequest($twitter_user);
         }
-        UserRelationship::create_(\Auth::user()->id, $userId);
+        UserRelationship::create_(\Auth::user()->id, $friendUser->id);
         return redirect('/tatekae');
     }
 

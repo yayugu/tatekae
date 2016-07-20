@@ -41,7 +41,7 @@ class UserRelationship extends \Eloquent
             'user_one_id' => $userOne,
             'user_two_id' => $userTwo,
             'created_by' => $userCreatedBy,
-            'state' => self::STATE_PENDING,
+            'state' => self::STATE_APPROVED,
         ]);
     }
 
@@ -79,32 +79,6 @@ class UserRelationship extends \Eloquent
             ->pluck('user_two_id');
         $user_ids_b = self::where('user_two_id', $user)
             ->where('state', self::STATE_APPROVED)
-            ->pluck('user_one_id');
-        return $user_ids_a->merge($user_ids_b);
-    }
-    
-    public static function pendingFriendsIds(int $user): Collection
-    {
-        $user_ids_a = self::where('user_one_id', $user)
-            ->where('state', self::STATE_PENDING)
-            ->where('created_by', '!=', $user)
-            ->pluck('user_two_id');
-        $user_ids_b = self::where('user_two_id', $user)
-            ->where('state', self::STATE_PENDING)
-            ->where('created_by', '!=', $user)
-            ->pluck('user_one_id');
-        return $user_ids_a->merge($user_ids_b);
-    }
-
-    public static function pendingFriendsCreatedByIds(int $user): Collection
-    {
-        $user_ids_a = self::where('user_one_id', $user)
-            ->where('state', self::STATE_PENDING)
-            ->where('created_by', $user)
-            ->pluck('user_two_id');
-        $user_ids_b = self::where('user_two_id', $user)
-            ->where('state', self::STATE_PENDING)
-            ->where('created_by', $user)
             ->pluck('user_one_id');
         return $user_ids_a->merge($user_ids_b);
     }

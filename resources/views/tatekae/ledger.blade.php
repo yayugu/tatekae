@@ -30,39 +30,42 @@
         </form>
     </section>
     <section class="section">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>項目</th>
-                <th>受取 / 受取予定</th>
-                <th>支払 / 支払予定</th>
-                <th>記帳日</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($ledger['records'] as $record)
-                <tr>
-                    <th>{{$record['item']}}</th>
-                    <th>{{$record['account_receivable']}}</th>
-                    <th>{{$record['account_payable']}}</th>
-                    <th>{{datetime_tz($record['created_at'])}}</th>
-                </tr>
-            @endforeach
-            </tbody>
-            <tfoot>
-            <tr>
-                <th>累計</th>
+        <div class="box">
+            <div class="columns">
+                <div class="column">
+                    <strong>累計</strong>
+                </div>
                 @if ($ledger['sum_record'] > 0)
-                    <th>{{$ledger['sum_record']}}</th>
-                    <th></th>
+                    <div class="column has-text-right">
+                        +{{$ledger['sum_record']}}
+                    </div>
+                    <div class="column has-text-right">
+                    </div>
                 @else
-                    <th></th>
-                    <th>{{- $ledger['sum_record']}}</th>
+                    <div class="column has-text-right">
+                    </div>
+                    <div class="column has-text-right">
+                        {{$ledger['sum_record']}}
+                    </div>
                 @endif
-                <th></th>
-            </tr>
-            </tfoot>
-        </table>
+            </div>
+        </div>
+        @foreach($ledger['records'] as $record)
+            <div class="box">
+                <div class="columns">
+                    <div class="column">
+                        <strong>{{$record['item']}}</strong> <small>{{datetime_tz($record['created_at'])}}</small>
+                    </div>
+                    <div class="column has-text-right">
+                        +{{$record['account_receivable']}}
+                    </div>
+                    <div class="column has-text-right">
+                        -{{$record['account_payable']}}
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
     </section>
 
 @stop

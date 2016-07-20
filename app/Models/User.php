@@ -104,16 +104,6 @@ class User extends Authenticatable
         return self::whereIn('id', UserRelationship::friendsIds($this->id));
     }
 
-    public function pendingFriends()
-    {
-        return self::whereIn('id', UserRelationship::pendingFriendsIds($this->id));
-    }
-
-    public function pendingFriendsCreatedBy()
-    {
-        return self::whereIn('id', UserRelationship::pendingFriendsCreatedByIds($this->id));
-    }
-
     /**
      * overrides.
      *

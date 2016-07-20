@@ -51,6 +51,7 @@ class Ledger extends \Eloquent
                         'account_receivable' => 0,
                         'account_payable' => (int)$record->value,
                         'created_at' => $record->created_at,
+                        'is_created_by_self' => (int)$record->created_by === $accountIdSelf
                     ];
                 }
                 return[
@@ -58,6 +59,7 @@ class Ledger extends \Eloquent
                     'account_receivable' => (int)$record->value,
                     'account_payable' => 0,
                     'created_at' => $record->created_at,
+                    'is_created_by_self' => (int)$record->created_by === $accountIdSelf
                 ];
             });
         $sumRecord = $records->reduce(function ($partial, $record) {

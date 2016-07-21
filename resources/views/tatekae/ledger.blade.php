@@ -1,6 +1,19 @@
 @extends('layouts.master')
 @section('title', '- ' . $account->name)
 
+@section('hero-body')
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <img src="{{$account->user->icon}}" width="22px" height="22px">
+                {{$account->name}} (&#64;{{$account->user->screen_name}})
+            </h1>
+            <h2 class="subtitle">
+            </h2>
+        </div>
+    </div>
+@stop
+
 @section('content')
     <section class="section">
         <form method="POST" action="{{ action('TatekaeController@postNewLedgerRecord', [$account->id]) }}">

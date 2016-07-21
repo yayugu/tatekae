@@ -25,6 +25,6 @@ class Account extends \Eloquent
 
     protected function user()
     {
-        return $this->hasOne('App\Phone');
+        return $this->hasOne('Tatekae\Models\User');
     }
 }

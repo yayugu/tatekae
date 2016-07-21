@@ -24,7 +24,7 @@
                         <td>
                             <a href="{{action('TatekaeController@getLedger', $friend_user->account->id)}}">
                                 <img src="{{$friend_user->icon}}" width="32px" height="32px">
-                                {{$friend_user->account->name}} sum:{{$sums[$friend_user->account->id] ?? 0}}
+                                {{$friend_user->account->name}} (&#64;{{$friend_user->screen_name}}) sum:{{$sums[$friend_user->account->id] ?? 0}}
                             </a>
                         </td>
                     </tr>

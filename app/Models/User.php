@@ -83,6 +83,8 @@ class User extends Authenticatable
 
     public function updateUserInfo(\Laravel\Socialite\AbstractUser $providerRespondedUser)
     {
+        $this->social_token = $providerRespondedUser->token;
+        $this->social_token_secret = $providerRespondedUser->tokenSecret;
         $this->screen_name = $providerRespondedUser->nickname;
         $this->icon = $providerRespondedUser->avatar;
         $this->saveOrFail();

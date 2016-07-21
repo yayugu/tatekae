@@ -16,7 +16,7 @@ class UserRelationshipController extends Controller
         $friendUser = User::where('screen_name', $screenName)->first();
         if (!$friendUser) {
             $twitter = new TwitterOAuth(
-                env('TWITTER_KEY'), env('TWITTER_SECRET'),
+                config('services.twitter.client_id'), config('services.twitter.client_secret'),
                 \Auth::user()->social_token, \Auth::user()->social_token_secret
             );
             $twitter_user = $twitter->get('users/show', ['screen_name' => $screenName]);

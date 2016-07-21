@@ -1,0 +1,19 @@
+.ledger-record {
+    padding: 10px;
+}
+
+.ledger-record+ .ledger-record {
+    border-top: 1px solid rgb(200, 200, 200);
+}
+
+.non-responsive-columns {
+    display: flex;
+}
+
+.non-responsive-column {
+    flex: 1;
+}
+
+.leger-number-column {
+    flex: 0 1 100px;
+}

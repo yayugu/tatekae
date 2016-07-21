@@ -43,34 +43,31 @@
         </form>
     </section>
     <section class="section">
-        <div class="box">
-            <div class="columns is-gapless">
-                <div class="column">
+        <div class="ledger-record">
+            <div class="non-responsive-columns">
+                <div class="non-responsive-column">
                     <strong>累計</strong>
                 </div>
-                <div class="column">
-                    <div style="display: flex; margin: -10px;">
                         @if ($ledger['sum_record'] > 0)
-                            <div class="column has-text-right">
+                            <div class="non-responsive-column has-text-right">
                                 <strong>+{{$ledger['sum_record']}}</strong>
                             </div>
-                            <div class="column has-text-right">
+                            <div class="non-responsive-column has-text-right">
                             </div>
                         @else
-                            <div class="column has-text-right">
+                            <div class="non-responsive-column has-text-right">
                             </div>
-                            <div class="column has-text-right">
+                            <div class="non-responsive-column has-text-right">
                                 <strong>{{$ledger['sum_record']}}</strong>
                             </div>
                         @endif
-                    </div>
-                </div>
+
             </div>
         </div>
         @foreach($ledger['records'] as $record)
-            <div class="box">
-                <div class="columns is-gapless">
-                    <div class="column">
+            <div class="ledger-record">
+                <div class="non-responsive-columns">
+                    <div class="non-responsive-column">
                         <strong>{{$record['item']}}</strong>
                         <small>
                             @if($record['is_created_by_self'])
@@ -81,17 +78,13 @@
                             {{datetime_tz($record['created_at'])}}
                         </small>
                     </div>
-                    <div class="column">
-                        <div style="display: flex; margin: -10px;">
-                            <div class="column has-text-right">
+                            <div class="non-responsive-column leger-number-column has-text-right">
                                 +{{$record['account_receivable']}}
                             </div>
-                            <div class="column has-text-right">
+                            <div class="non-responsive-column leger-number-column has-text-right">
                                 -{{$record['account_payable']}}
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
         @endforeach
 

@@ -14,6 +14,10 @@
     flex: 1;
 }
 
-.leger-number-column {
-    flex: 0 1 100px;
+.ledger-text-column {
+    flex: 1 1 auto;
+}
+
+.ledger-number-column {
+    flex: 0 0 90px;
 }

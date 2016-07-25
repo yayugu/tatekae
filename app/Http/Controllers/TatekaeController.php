@@ -58,12 +58,13 @@ class TatekaeController extends Controller
             $payer = $user->account->id;
             $payee = $account_id;
         }
+        $value = preg_replace("/[^\d]+/", "", \Request::input('value'));
         Ledger::create([
             'created_by' => $user->account->id,
             'item' => \Request::input('item'),
             'payer' => $payer,
             'payee' => $payee,
-            'value' => \Request::input('value'),
+            'value' => $value,
         ]);
         return redirect()->action('TatekaeController@getLedger', [$account_id]);
     }

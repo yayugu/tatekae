@@ -26,8 +26,8 @@
                     <div class="control">
                         <span class="select">
                             <select name="type">
-                                <option value="account_receivable">受取 / 受取予定</option>
-                                <option value="account_payable">支払 / 支払予定</option>
+                                <option value="account_receivable">受取 (予定)</option>
+                                <option value="account_payable">支払 (予定)</option>
                             </select>
                         </span>
                     </div>
@@ -35,7 +35,7 @@
                         <input class="input" type="text" name="item" value="" placeholder="項目">
                     </div>
                     <div class="control">
-                        <input class="input" type="text" name="value" value="" placeholder="金額">
+                        <input class="input" type="tel" name="value" value="" placeholder="金額">
                     </div>
                     <div class="control">
                         <button class="button" type="submit">追加</button>

@@ -22,14 +22,16 @@
 
                 @include('parts.error_message')
 
-                <div class="control is-grouped">
+                <div class="control">
                     <div class="control">
-                        <span class="select">
-                            <select name="type">
-                                <option value="account_receivable">受取 (予定)</option>
-                                <option value="account_payable">支払 (予定)</option>
-                            </select>
-                        </span>
+                        <label class="radio">
+                            <input type="radio" name="type" value="account_receivable">
+                            受取 / 受取予定
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="type" value="account_payable">
+                            支払 / 支払予定
+                        </label>
                     </div>
                     <div class="control">
                         <input class="input" type="text" name="item" value="" placeholder="項目">
@@ -38,7 +40,7 @@
                         <input class="input" type="tel" name="value" value="" placeholder="金額">
                     </div>
                     <div class="control">
-                        <button class="button" type="submit">追加</button>
+                        <button class="button is-primary" type="submit">追加</button>
                     </div>
                 </div>
             </form>

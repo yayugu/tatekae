@@ -5,8 +5,10 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <img src="{{$account->user->icon}}" width="22px" height="22px">
-                {{$account->name}} (&#64;{{$account->user->screen_name}})
+                @if($account->user)
+                    <img src="{{$account->user->icon}}" width="22px" height="22px">
+                    {{$account->name}} (&#64;{{$account->user->screen_name}})
+                @endif
             </h1>
             <h2 class="subtitle">
             </h2>

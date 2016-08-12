@@ -31,3 +31,6 @@ Route::post('tatekae/{account_id}/{ledger_id}/edit', 'TatekaeController@postEdit
 
 Route::post('user_relationship/new', 'UserRelationshipController@postNew');
 Route::post('user_relationship/reply', 'UserRelationshipController@postReply');
+
+Route::get('user/profile', ['as' => 'profile', 'uses' => 'UserController@getProfile']);
+Route::put('user/profile', ['as' => 'profile.update', 'uses' => 'UserController@updateProfile']);

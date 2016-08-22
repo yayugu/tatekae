@@ -72,15 +72,24 @@ class UserRelationship extends \Eloquent
             ->where('state', self::STATE_APPROVED)->first();
     }
 
-    public static function friendsIds(int $user): Collection
+    public static function friends(int $user): Collection
     {
-        $user_ids_a = self::where('user_one_id', $user)
+        $user_a = self::where('user_one_id', $user)
             ->where('state', self::STATE_APPROVED)
-            ->pluck('user_two_id');
-        $user_ids_b = self::where('user_two_id', $user)
+            ->get();
+        $user_b = self::where('user_two_id', $user)
             ->where('state', self::STATE_APPROVED)
-            ->pluck('user_one_id');
-        return $user_ids_a->merge($user_ids_b);
+            ->get();
+        return $user_a->merge($user_b);
+    }
+
+    public static function getMyRelation(int $user_relationship_id): self
+    {
+        $relationship = self::find($user_relationship_id);
+        if ($relationship->user_one_id !== $user_relationship_id && $relationship->user_two_id !== $user_relationship_id) {
+            abort(403);
+        }
+        return $relationship;
     }
 
     private static function sort(int $userOne, int $userTwo): array

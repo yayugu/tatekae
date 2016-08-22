@@ -5,6 +5,8 @@ namespace Tatekae\Http\Controllers;
 use Tatekae\Models\Account;
 use Tatekae\Models\Ledger;
 use Tatekae\Models\OwnAccount;
+use Tatekae\Models\User;
+use Tatekae\Models\UserRelationship;
 
 class TatekaeController extends Controller
 {
@@ -17,14 +19,29 @@ class TatekaeController extends Controller
     {
         $user = \Auth::user();
         $sums = Ledger::getSumsByAccount($user->id);
+        $user_relationships = UserRelationship::friends($user->id);
+        $friends = User::whereIn('id', $user_relationships->pluck('id'))->get();
+
         return view('tatekae.mypage', [
             'user' => $user,
             'sums' => $sums,
+            'user_relationships', $user_relationships,
+            'friends' => $friends,
         ]);
     }
 
-    public function getLedger(string $account_id)
+    public function getAccountLedger(string $account_id)
     {
+        $ledger = Ledger::getLedgerAcross(\Auth::user()->account->id, $account_id);
+        return view('tatekae.ledger', [
+            'account' => Account::find($account_id),
+            'ledger' => $ledger,
+        ]);
+    }
+
+    public function getUserLedger(string $user_relationship_id)
+    {
+        $account_id = UserRelationship::getMyRelation((int)$user_relationship_id);
         $ledger = Ledger::getLedgerAcross(\Auth::user()->account->id, $account_id);
         return view('tatekae.ledger', [
             'account' => Account::find($account_id),

@@ -101,11 +101,6 @@ class User extends Authenticatable
         return Account::whereIn('id', $account_ids);
     }
 
-    public function friends()
-    {
-        return self::whereIn('id', UserRelationship::friendsIds($this->id));
-    }
-
     /**
      * overrides.
      *

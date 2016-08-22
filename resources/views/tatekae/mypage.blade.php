@@ -19,10 +19,10 @@
             <h1 class="title">Friends</h1>
 
             <table class="table">
-                @foreach($user->friends()->get() as $friend_user)
+                @foreach($friends as $i => $friend_user)
                     <tr>
                         <td>
-                            <a href="{{action('TatekaeController@getLedger', $friend_user->account->id)}}">
+                            <a href="{{route('tatekae.user.ledger', $user_relationships->id)}}">
                                 <img src="{{$friend_user->icon}}" width="32px" height="32px">
                                 {{$friend_user->account->name}} (&#64;{{$friend_user->screen_name}}) sum:{{$sums[$friend_user->account->id] ?? 0}}
                             </a>
@@ -51,7 +51,7 @@
                 @foreach($user->ownAccounts()->get() as $account)
                     <tr>
                         <td>
-                            <a href="{{action('TatekaeController@getLedger', $account->id)}}">
+                            <a href="{{route('tatekae.account.ledger', $account->id)}}">
                                 {{$account->name}}  sum:{{$sums[$account->id] ?? 0}}
                             </a>
                         </td>

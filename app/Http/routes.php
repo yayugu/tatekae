@@ -24,7 +24,8 @@ Route::get('/social/handle/twitter', ['as' => 'social.handle', 'uses' => 'Auth\A
 
 //Route::get('home', '');
 Route::get('tatekae', 'TatekaeController@getMypage');
-Route::get('tatekae/{account_id}', 'TatekaeController@getLedger');
+Route::get('tatekae/account/{account_id}', ['as' => 'tatekae.account.ledger', 'uses' => 'TatekaeController@getAccountLedger']);
+Route::get('tatekae/{user_relationship_id}', ['as' => 'tatekae.user.ledger', 'uses' => 'TatekaeController@getUserLedger']);
 Route::post('tatekae/new', 'TatekaeController@postNewAccount');
 Route::post('tatekae/{account_id}/new', 'TatekaeController@postNewLedgerRecord');
 Route::post('tatekae/{account_id}/{ledger_id}/edit', 'TatekaeController@postEditLedgerRecord');
